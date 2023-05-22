@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Магазин товаров для спорта</title>
 </head>
 <style>
 
@@ -64,15 +65,22 @@ border: 1px solid red;
     }
     .productImage{
         border: 1px solid brown;
-        width: 100%;
-        height: 200px;
-        margin-bottom: 5px;
-        background: url("footer.jpg");
-        background-size: cover;
+
     }
-    li{margin: 0px;
-        background-color: darkgrey;
-        height: 50px;
+    li{ background: #ddd;
+        border: 1px solid #ddd;
+        padding: 5px;
+        margin: 5px;
+        width: 200px;
+        list-style-type: none;
+    }
+    .menu li {
+        cursor: pointer;
+    }
+
+    .menu li > a {
+        display: block;
+        text-decoration: none;
     }
     li:hover{background-color: gray}
     ul{margin: 0px;
@@ -83,6 +91,17 @@ border: 1px solid red;
 
 <body>
 <div class="container">
+    <div>
+        <form action="/new">
+        <input type="submit" value="Зарегистрироваться">
+        </form>
+        <form action="/auth/login">
+            <input type="submit" value="Войти">
+        </form>
+        <form action="/">
+            <input type="submit" value="Корзина покупок">
+        </form>
+    </div>
     <div class="header">
         <div class="imgTop"></div>
         <input class="find" type="text">
@@ -90,11 +109,11 @@ border: 1px solid red;
 </div>
 <div class="block">
     <div class="left">
-        <ul>
+        <ul class="menu">
 <#list categories as category>
     <li>
-        <a href="/category/${category.id}">  ${category.name}
-        </a></li>
+        <a href="/category/${category.id}">  ${category.name}</a>
+        </li>
 </#list >
         </ul>
     </div>
@@ -102,7 +121,9 @@ border: 1px solid red;
 
 <#list products as product>
     <div class="card">
-        <div class="productImage"></div>
+        <div class="productImage">
+            <img src="/images/${product.getPreviewId()}" alt="preview_image" height="200px" width="200px" alt="">
+        </div>
         <div>${product.name}</div>
        <div> ${product.price} </div>
         <div><a href="/product/${product.id}"> Информация о товаре</a></div>

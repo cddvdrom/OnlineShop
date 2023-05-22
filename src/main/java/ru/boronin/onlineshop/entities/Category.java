@@ -1,22 +1,27 @@
 package ru.boronin.onlineshop.entities;
 
-import jakarta.persistence.*;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.boronin.onlineshop.enums.Categories;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
 
 @Entity
 @Table(name = "categories")
 @Data
 @NoArgsConstructor
-public class Category {
+public class Category implements Serializable {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Categories name;
 
-    public Category(String name){
-        this.name=name;
-    }
+
 }

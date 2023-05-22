@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Product Info</title>
 </head>
 <body>
-<h1>${product.id}</h1>
-<h1>${product.name}</h1>
-<h1>${product.price}</h1>
-<h1>${product.description}</h1>
+<table>
+    <th>Информация о товаре</th>
+    <br>
+    <tr>
+    <td>Название</td>
+    <td>${product.name}</td>
+    </tr>
+    <tr>
+        <td>Описание</td>
+    <td>${product.description}</td>
+    </tr>
+<tr>
+    <#list images as image>
+    <td><img src="/images/${image.getId()}" alt="image1" height="200px" width="200px"></td>
+
+</#list >
+</tr>
+    <tr>
+        <td>Цена</td>
+    <td>${product.price}</td>
+    </tr>
+
+    <tr>
+        <td>
+        <form action="/addShoppingCart/${product.id}" method="get">
+            <input type="submit" value="Купить товар">
+        </form>
+        </td>
+    </tr>
+
+</table>
 
 </body>
 </html>

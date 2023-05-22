@@ -1,16 +1,35 @@
 package ru.boronin.onlineshop.entities;
 
-import lombok.Data;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Data
+@Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "buckets")
 public class Bucket {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Map<Product,Integer> productList;
+@OneToOne
+    @JoinColumn(name = "user_id")
+    private MyUser user;
 
-    public Bucket(){
-        this.productList=new HashMap<>();
-    }
+@OneToMany(cascade = CascadeType.REFRESH,mappedBy = "bucket")
+    private List<BucketDetail> bucketDetails=new ArrayList<>();
+
 }
+
+

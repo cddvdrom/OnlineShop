@@ -9,13 +9,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.boronin.onlineshop.entities.Category;
+import ru.boronin.onlineshop.entities.Image;
 import ru.boronin.onlineshop.entities.Product;
 import ru.boronin.onlineshop.services.ProductService;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Controller
 public class ProductController {
@@ -35,8 +37,10 @@ public class ProductController {
 
     @GetMapping("/product/{id}")
     public String getProduct(@PathVariable Long id, Model model) {
-
-        model.addAttribute("product", service.findById(id));
+        Product product=service.findById(id);
+        List<Image> imageList=product.getImages();
+        model.addAttribute("images",imageList);
+        model.addAttribute("product", product);
         return "productInfo";
     }
 

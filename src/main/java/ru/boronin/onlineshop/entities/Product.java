@@ -1,16 +1,20 @@
 package ru.boronin.onlineshop.entities;
 
-import jakarta.persistence.*;
+
 import lombok.*;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,20 +23,22 @@ public class Product {
     private String name;
     @Column(name = "mark")
     private String mark;
-    @ManyToOne(optional = false,cascade = CascadeType.ALL)
-private Category category;
-@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "product")
+    //@ManyToMany
+    //@JoinTable(name = "products_categories",
+    //joinColumns = @JoinColumn(name = "product_id"),
+    //inverseJoinColumns = @JoinColumn(name = "category_id"))
+    //private List <Category> categoryList;
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id",referencedColumnName = "id")
+    private Category category;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
+            mappedBy = "product")
     private List<Image> images = new ArrayList<>();
-private Long previewId;
-@Column(name = "description",columnDefinition = "text")
-    private  String description;
+    private Long previewId;
+    @Column(name = "description", columnDefinition = "text")
+    private String description;
     @Column(name = "price")
-    private  double price;
+    private BigDecimal price;
 
-    public Product(String name,String description,double price,Category category) {
-        this.name=name;
-        this.description=description;
-        this.price=price;
-        this.category=category;
-    }
+
 }
