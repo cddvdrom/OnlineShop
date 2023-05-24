@@ -79,7 +79,7 @@
                         <form action="/edit/${product.id}" method="get">
                             <td><input type="text" value="${product.name}" name="name"></td>
                             <td><input type="text" value="${product.mark}" name="mark"></td>
-                            <td><input type="text" value="${product.price}" name="price"></td>
+                            <td><input type="number" value="${product.price}" name="price"></td>
                             <td><a href="/delete/${product.id}">удалить товар</a></td>
                             <td><input type="submit" value="сохранить изменения"></td>
                         </form>
@@ -87,6 +87,34 @@
                 </#list>
             </table>
         </div>
+
+
+        <div>
+            <h3>Cписок пользователей:</h3>
+        </div>
+        <div>
+            <table>
+<tr>
+                <th>Имя</th>
+                <th>Почта</th>
+                <th>Пароль</th>
+                <th>Активен</th>
+                <th>Роль</th>
+</tr>
+                <#list users as user>
+
+                    <tr>
+                            <td><${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.password}</td>
+                        <td>${user.getActive()}</td>
+                        <td>${user.getRole()}</td>
+
+                    </tr>
+                </#list>
+            </table>
+        </div>
+
     </div>
     <div class="right">
         <table>

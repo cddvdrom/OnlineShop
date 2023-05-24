@@ -6,7 +6,8 @@
 </head>
 <body>
 <table>
-    <form action="/process_login">
+
+    <form action="/process_login" method="post">
     <tr>
         <td>Имя пользователя :</td>
         <td>
@@ -28,7 +29,6 @@
         </tr>
         <tr>
             <td>
-
 
 
             </td>

@@ -7,6 +7,7 @@ public enum Categories {
         BASKETBALL("Баскетбол"),
         TENNIS("Теннис");
 
+
         private String title;
 
         Categories(String string){

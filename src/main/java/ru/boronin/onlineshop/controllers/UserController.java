@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.boronin.onlineshop.DTO.UserDTO;
-import ru.boronin.onlineshop.services.ProductService;
 import ru.boronin.onlineshop.services.UserService;
 
 @Controller

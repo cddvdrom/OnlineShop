@@ -47,4 +47,11 @@ private boolean active;
 @OneToMany(mappedBy = "user")
 private List<Order> orderList;
 
+public String getActive(){
+    return String.valueOf(this.active);
+}
+
+    public String getRole(){
+        return String.valueOf(this.role);
+    }
 }

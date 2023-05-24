@@ -15,8 +15,6 @@
     }
 
     .container {
-border: 1px solid red;
-        background: rgb(15, 24, 42);
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -25,7 +23,7 @@ border: 1px solid red;
     }
 
     .header {
-        border: 1px solid green;
+
         display: flex;
         width: 100%;
         flex-direction: column;
@@ -35,15 +33,16 @@ border: 1px solid red;
     }
 
     .imgTop {
-        border: 1px solid brown;
+
         width: 900px;
         height: 300px;
         margin-bottom: 5px;
-        background: url("footer.jpg");
+        background: url("static/images/footer.jpg");
         background-size: cover;
         border-radius: 50px 30px;
     }
     .find{
+        background-color: #dddddd;
         width: 600px;
         height: 20px;
     }
@@ -54,20 +53,19 @@ border: 1px solid red;
     .left{width: 400px;}
     .right{display: grid;
     grid-template-columns: repeat(3,1fr);
-    border: 1px solid red;
+
     width: 100%;}
     .card{
-        border: 1px solid blue;
+        border: 1px solid ghostwhite;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;;
     }
     .productImage{
-        border: 1px solid brown;
 
     }
-    li{ background: #ddd;
+    li{ background:gainsboro;
         border: 1px solid #ddd;
         padding: 5px;
         margin: 5px;
@@ -82,7 +80,7 @@ border: 1px solid red;
         display: block;
         text-decoration: none;
     }
-    li:hover{background-color: gray}
+    li:hover{background-color: ghostwhite}
     ul{margin: 0px;
         list-style-type: none;
         font-size: 30px;
@@ -91,7 +89,12 @@ border: 1px solid red;
 
 <body>
 <div class="container">
-    <div>
+    <div class="block">
+
+        <form action="/admin">
+            <input type="submit" value="Админ">
+        </form>
+
         <form action="/new">
         <input type="submit" value="Зарегистрироваться">
         </form>
@@ -101,9 +104,14 @@ border: 1px solid red;
         <form action="/">
             <input type="submit" value="Корзина покупок">
         </form>
+        <form action="/logout">
+            <input type="submit" value="Logout">
+        </form>
     </div>
     <div class="header">
-        <div class="imgTop"></div>
+        <div>
+            <img src="../static/images/footer.jpg" alt="" height="300px" width="800px">
+        </div>
         <input class="find" type="text">
     </div>
 </div>

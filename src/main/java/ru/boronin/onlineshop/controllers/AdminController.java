@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.boronin.onlineshop.entities.Category;
 import ru.boronin.onlineshop.entities.Product;
 import ru.boronin.onlineshop.services.ProductService;
+import ru.boronin.onlineshop.services.UserService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,10 +16,12 @@ import java.util.List;
 
 @Controller
 public class AdminController {
+    private final UserService userService;
     private final ProductService service;
 @Autowired
-    public AdminController(ProductService service) {
-        this.service = service;
+    public AdminController(UserService userService, ProductService service) {
+    this.userService = userService;
+    this.service = service;
     }
 
     @GetMapping("/admin")
@@ -26,6 +29,7 @@ public class AdminController {
     List<Category> categoryList=service.findAllCategory();
     model.addAttribute("categories",categoryList);
         model.addAttribute("products",service.getaAllProducts());
+        model.addAttribute("users",userService.getaAllUsers());
         return "admin";
     }
     @PostMapping("/create")
@@ -37,6 +41,7 @@ public class AdminController {
 
         service.save(product,file1,file2,file3);
         model.addAttribute("products",service.getaAllProducts());
+
         return "redirect:/admin";
     }
     @GetMapping("/delete/{id}")

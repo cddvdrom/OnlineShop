@@ -2,11 +2,14 @@ package ru.boronin.onlineshop.config.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.boronin.onlineshop.entities.MyUser;
 
 import java.util.Collection;
+import java.util.Collections;
+
 @AllArgsConstructor
 public class MyUserDetail implements UserDetails {
     private final MyUser user;
@@ -14,7 +17,8 @@ public class MyUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+       // return Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()));
+        return Collections.emptyList();
     }
 
     @Override

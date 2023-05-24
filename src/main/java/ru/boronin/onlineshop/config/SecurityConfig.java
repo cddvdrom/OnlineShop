@@ -1,11 +1,14 @@
 package ru.boronin.onlineshop.config;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -14,33 +17,52 @@ import ru.boronin.onlineshop.services.MyUserDetailsService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-private MyUserDetailsService myUserDetailsService;
-@Autowired
-public SecurityConfig(MyUserDetailsService myUserDetailsService){
-    this.myUserDetailsService=myUserDetailsService;
-}
+    private MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    public SecurityConfig(MyUserDetailsService myUserDetailsService) {
+        this.myUserDetailsService = myUserDetailsService;
+    }
 
     protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-    authenticationManagerBuilder.userDetailsService(myUserDetailsService);
+        authenticationManagerBuilder.userDetailsService(myUserDetailsService)
+                .passwordEncoder(getPasswordEncoder());
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests().
-                antMatchers("/","/images","/images/*","/auth/login","/new","/new/*",
-                        "/category/*","/product/*","/addShoppingCart/*","/all").permitAll().
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().
+                authorizeRequests().
+                antMatchers("/","/edit/**","/edit/*","/edit", "/images", "/images/*", "/auth/login", "/new", "/new/*",
+                        "/category/*", "/product/*", "/create", "/create/*", "/addShoppingCart/*").permitAll().
                 anyRequest().authenticated().
                 and().
                 formLogin().loginPage("/auth/login").
                 loginProcessingUrl("/process_login").
-                defaultSuccessUrl("/login_ok", true).
-                failureUrl("/auth/login");
+                defaultSuccessUrl("/", true).
+                failureUrl("/auth/login/?error").
+                and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
 
 
     }
-@Bean
-    public PasswordEncoder getPasswordEncoder(){
-    return NoOpPasswordEncoder.getInstance();
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers(
+                "/css/**",
+                "/js/**",
+                "/fonts/**",
+                "/images/**",
+                "/static/**", "/static", "/images", "/static/images",
+                "static/*", "static/images/*"
+        );
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+
+        //return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
 }
