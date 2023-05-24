@@ -7,6 +7,7 @@ import ru.boronin.onlineshop.enums.Categories;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -19,9 +20,12 @@ public class Category implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
+
     @Enumerated(EnumType.STRING)
+    @Column (name = "name")
     private Categories name;
 
+    @OneToMany(mappedBy = "category")
+private List<Product> productList;
 
 }

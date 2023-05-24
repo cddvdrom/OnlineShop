@@ -104,12 +104,12 @@
                 <#list users as user>
 
                     <tr>
-                            <td><${user.name}</td>
+                            <td>${user.name}</td>
                             <td>${user.email}</td>
                             <td>${user.password}</td>
                         <td>${user.getActive()}</td>
                         <td>${user.getRole()}</td>
-
+                        <td><a href="/deleteUser/${user.id}">X</a></td>
                     </tr>
                 </#list>
             </table>

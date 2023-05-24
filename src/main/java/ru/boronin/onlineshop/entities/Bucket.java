@@ -23,8 +23,7 @@ public class Bucket {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-@OneToOne
-    @JoinColumn(name = "user_id")
+@OneToOne (optional=false, mappedBy="bucket")
     private MyUser user;
 
 @OneToMany(cascade = CascadeType.REFRESH,mappedBy = "bucket")

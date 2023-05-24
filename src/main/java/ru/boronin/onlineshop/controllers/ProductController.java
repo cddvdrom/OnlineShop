@@ -28,12 +28,12 @@ public class ProductController {
         this.service = service;
     }
 
-    //   @GetMapping("/")
-    //   public String allProducts(Model model){
-    //       model.addAttribute("products",service.getaAllProducts());
-    //       model.addAttribute("categories",service.findAllCategory());
-    //       return "all";
-    //  }
+//       @GetMapping("/")
+//       public String allProducts(Model model){
+//           model.addAttribute("products",service.getaAllProducts());
+//           model.addAttribute("categories",service.findAllCategory());
+//           return "all";
+//      }
 
     @GetMapping("/product/{id}")
     public String getProduct(@PathVariable Long id, Model model) {

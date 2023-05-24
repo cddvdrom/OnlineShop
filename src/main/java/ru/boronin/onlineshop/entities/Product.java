@@ -28,7 +28,7 @@ public class Product implements Serializable {
     //joinColumns = @JoinColumn(name = "product_id"),
     //inverseJoinColumns = @JoinColumn(name = "category_id"))
     //private List <Category> categoryList;
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id",referencedColumnName = "id")
     private Category category;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,

@@ -34,6 +34,12 @@ public class UserServiceIml implements UserService {
     public List<MyUser> getaAllUsers() {return userRepository.findAll();
 
     }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
     @Transactional
     @Override
     public boolean save(UserDTO userDTO) {
@@ -48,7 +54,7 @@ String encPass=passwordEncoder.encode(userDTO.getPassword());
         user.setActive(true);
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
-        user.setRole(Roles.CLIENT);
+        user.setRole(Roles.ROLE_CLIENT);
         user.setPassword(encPass);
         user.setBucket(bucket);
         MyUser UserDb = userRepository.save(user);
@@ -68,7 +74,7 @@ String encPass=passwordEncoder.encode(userDTO.getPassword());
         MyUser user = new MyUser();
         user.setActive(true);
         user.setEmail(userDTO.getEmail());
-        user.setRole(Roles.CLIENT);
+        user.setRole(Roles.ROLE_CLIENT);
         user.setPassword(userDTO.getPassword());
         userRepository.save(user);
         return true;

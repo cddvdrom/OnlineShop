@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import ru.boronin.onlineshop.services.MyUserDetailsService;
@@ -33,9 +32,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().
                 authorizeRequests().
-                antMatchers("/","/edit/**","/edit/*","/edit", "/images", "/images/*", "/auth/login", "/new", "/new/*",
-                        "/category/*", "/product/*", "/create", "/create/*", "/addShoppingCart/*").permitAll().
-                anyRequest().authenticated().
+                antMatchers("/admin").hasRole("ADMIN").
+                antMatchers("/","/edit/**","/edit/*","/edit", "/images",
+                        "/images/*", "/auth/login", "/new", "/new/*",
+                        "/category/*", "/product/*", "/create", "/create/*",
+                        "/addShoppingCart/*","/all","/error").permitAll().
+                anyRequest().hasAnyRole("GUEST","ADMIN","CLIENT").
                 and().
                 formLogin().loginPage("/auth/login").
                 loginProcessingUrl("/process_login").

@@ -11,4 +11,6 @@ public interface UserService {
     boolean save(UserDTO userDTO);
 
      List<MyUser> getaAllUsers();
+
+     void delete(Long id);
 }

@@ -40,8 +40,8 @@ private boolean active;
     @Column(name = "role")
 @Enumerated(EnumType.STRING)
     private Roles role;
-   @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bucket_id")
+    @OneToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name="bucket_id")
    private Bucket bucket;
 
 @OneToMany(mappedBy = "user")
